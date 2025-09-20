@@ -1,6 +1,5 @@
 package com.example.tic_toe_app.ui;
 
-import android.content.DialogInterface;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 public class ResultDialog {
