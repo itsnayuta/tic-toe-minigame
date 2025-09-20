@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Tic-Toe-App</string>
+    <string name="tic_tac_toe">Tic Tac Toe</string>
+    <string name="play_now">Chơi Ngay</string>
+    <string name="setting">Cài Đặt</string>
+    <string name="achievement">Thành Tựu</string>
+    <string name="exit">Thoát</string>
+    <string name="mode">Chế độ</string>
+    <string name="board">Kích thước</string>
+    <string name="reset">Reset</string>
+    <string name="back">Back</string>
 </resources>
