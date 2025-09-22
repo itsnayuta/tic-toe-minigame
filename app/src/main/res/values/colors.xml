@@ -20,6 +20,12 @@
     
     <!-- Background Colors -->
     <color name="card_background">#F5F5F5</color>
-    <color name="text_primary">#333333</color>
-    <color name="text_secondary">#666666</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#CCCCCC</color>
+    <color name="text_dialog">#333333</color>
+    <color name="game_background">@color/design_default_color_secondary</color>
+    
+    <!-- Score Board Colors -->
+    <color name="score_background">@android:color/darker_gray</color>
+    <color name="score_border">#4A5A6A</color>
 </resources>

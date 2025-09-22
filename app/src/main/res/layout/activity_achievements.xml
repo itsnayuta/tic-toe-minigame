@@ -73,7 +73,7 @@
                         android:text="LIST ACHIEVEMENTS"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:textColor="@color/text_primary"
+                        android:textColor="@color/black"
                         android:fontFamily="@font/fontgame"
                         android:layout_marginBottom="20dp" />
 
@@ -117,7 +117,7 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/fontgame"
                                     android:text="Victory Master"
-                                    android:textColor="@color/text_primary"
+                                    android:textColor="@color/black"
                                     android:textSize="15sp"
                                     android:textStyle="bold" />
 
@@ -126,7 +126,7 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="sans-serif-medium"
                                     android:text="Thắng 100 trận với bot"
-                                    android:textColor="@color/text_secondary"
+                                    android:textColor="@color/black"
                                     android:textSize="12sp"
                                     android:textStyle="bold"/>
 
@@ -198,7 +198,7 @@
                                     android:text="Never Give Up"
                                     android:textSize="15sp"
                                     android:textStyle="bold"
-                                    android:textColor="@color/text_primary"
+                                    android:textColor="@color/black"
                                     android:fontFamily="@font/fontgame" />
 
                                 <TextView
@@ -206,7 +206,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Thua 100 trận với bot"
                                     android:textSize="12sp"
-                                    android:textColor="@color/text_secondary"
+                                    android:textColor="@color/black"
                                     android:fontFamily="sans-serif-medium"
                                     android:textStyle="bold"/>
 
@@ -243,6 +243,21 @@
             </LinearLayout>
 
         </ScrollView>
+
+        <!-- Statistical Analysis Button -->
+        <Button
+            android:id="@+id/btnStatisticalAnalysis"
+            android:layout_width="280dp"
+            android:layout_height="55dp"
+            android:text="ANALYSIS"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/fontgame"
+            android:background="@drawable/button_mm"
+            android:elevation="6dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="16dp" />
 
         <!-- Back Button -->
         <Button

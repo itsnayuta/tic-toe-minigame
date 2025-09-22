@@ -116,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:text="Volume: 70%"
                 android:textSize="14sp"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/black"
                 android:fontFamily="@font/fontgame"
                 android:layout_gravity="center_horizontal" />
 

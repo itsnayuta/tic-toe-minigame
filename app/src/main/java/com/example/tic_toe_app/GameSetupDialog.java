@@ -162,9 +162,9 @@ public class GameSetupDialog extends Dialog {
 
     private void startGame() {
         Intent intent = new Intent(getContext(), GameActivity.class);
-        intent.putExtra("MODE", selectedMode);
+        intent.putExtra("GAME_MODE", selectedMode);
         intent.putExtra("DIFFICULTY", selectedDifficulty);
-        intent.putExtra("SIZE", selectedSize);
+        intent.putExtra("BOARD_SIZE", String.valueOf(selectedSize));
         getContext().startActivity(intent);
     }
 }

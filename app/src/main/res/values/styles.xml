@@ -26,11 +26,12 @@
     <!-- Custom Dialog Theme with Light Background and Dark Text -->
     <style name="CustomDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@drawable/dialog_background</item>
-        <item name="android:textColorPrimary">#333333</item>
-        <item name="android:textColorSecondary">#666666</item>
+        <item name="android:textColorPrimary">@color/text_dialog</item>
+        <item name="android:textColorSecondary">@color/text_dialog</item>
         <item name="colorPrimary">@color/button_primary</item>
         <item name="colorAccent">@color/button_primary</item>
         <item name="android:buttonBarButtonStyle">@style/CustomDialogButton</item>
+        <item name="android:fontFamily">@font/fontgame</item>
     </style>
     
     <!-- Custom Dialog Button Style -->
@@ -38,5 +39,6 @@
         <item name="android:textColor">@color/button_primary</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/fontgame</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 </resources>
