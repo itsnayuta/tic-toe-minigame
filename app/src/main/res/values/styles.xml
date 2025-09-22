@@ -3,4 +3,23 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
     </style>
+    
+    <!-- Custom SeekBar style that ignores system theme -->
+    <style name="CustomSeekBar" parent="@android:style/Widget.SeekBar">
+        <item name="android:progressTint">#FF4081</item>
+        <item name="android:thumbTint">#FF4081</item>
+        <item name="android:progressBackgroundTint">#E0E0E0</item>
+    </style>
+    
+    <!-- Custom ToggleButton style -->
+    <style name="CustomToggleButton" parent="@android:style/Widget.Button.Toggle">
+        <item name="android:background">@drawable/button_secondary</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    
+    <!-- Custom Button style -->
+    <style name="CustomButton" parent="@android:style/Widget.Button">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

@@ -2,7 +2,24 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    
+    <!-- TicToeApp Custom Colors -->
+    <color name="colorPrimary">#FF4081</color>
+    <color name="colorPrimaryDark">#E91E63</color>
+    <color name="colorAccent">#5C6BC0</color>
+    
+    <!-- Button Colors -->
+    <color name="button_primary">#FF4081</color>
+    <color name="button_primary_pressed">#E91E63</color>
+    <color name="button_secondary">#5C6BC0</color>
+    <color name="button_secondary_pressed">#3F51B5</color>
+    <color name="button_danger">#F44336</color>
+    <color name="button_danger_pressed">#D32F2F</color>
+    <color name="button_achievement">#FFC107</color>
+    <color name="button_achievement_pressed">#FF9800</color>
+    
+    <!-- Background Colors -->
+    <color name="card_background">#F5F5F5</color>
+    <color name="text_primary">#333333</color>
+    <color name="text_secondary">#666666</color>
 </resources>

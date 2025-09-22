@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -7,4 +7,141 @@
     android:layout_height="match_parent"
     tools:context=".SettingsActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Background Image -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background" />
+
+    <!-- Gradient Overlay -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_overlay" />
+
+    <!-- Main Content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="32dp">
+
+        <!-- Settings Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SETTINGS"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/fontgame"
+            android:shadowColor="#000000"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="4"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="80dp"
+            android:gravity="center" />
+
+        <!-- Settings Container -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_bg"
+            android:padding="24dp"
+            android:layout_marginBottom="40dp"
+            android:elevation="8dp">
+
+            <!-- Volume Settings Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VOLUME CONTROL"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#333333"
+                android:fontFamily="@font/fontgame"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Volume Control Layout -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
+
+                <!-- Volume Icon -->
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@android:drawable/ic_lock_silent_mode_off"
+                    android:layout_marginEnd="16dp"
+                    app:tint="#666666" />
+
+                <!-- Volume Slider -->
+                <SeekBar
+                    android:id="@+id/volumeSeekBar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
+                    android:max="100"
+                    android:progress="70"
+                    android:progressTint="@color/button_primary"
+                    android:thumbTint="@color/button_primary" />
+
+                <!-- Mute/Unmute Button -->
+                <ToggleButton
+                    android:id="@+id/muteToggleButton"
+                    style="@style/CustomToggleButton"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:textOff="🔊"
+                    android:textOn="🔇"
+                    android:textSize="18sp"
+                    android:background="@drawable/button_secondary"
+                    android:textColor="#FFFFFF"
+                    android:checked="false" />
+
+            </LinearLayout>
+
+            <!-- Volume Value Display -->
+            <TextView
+                android:id="@+id/volumeValueText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Volume: 70%"
+                android:textSize="14sp"
+                android:textColor="@color/text_secondary"
+                android:fontFamily="@font/fontgame"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
+
+        <!-- Space filler -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- Back Button -->
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="200dp"
+            android:layout_height="55dp"
+            android:text="BACK"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/fontgame"
+            android:background="@drawable/button_mm"
+            android:elevation="6dp"
+            android:layout_marginBottom="32dp" />
+
+    </LinearLayout>
+
+</FrameLayout>
