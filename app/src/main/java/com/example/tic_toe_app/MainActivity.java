@@ -27,70 +27,25 @@ public class MainActivity extends AppCompatActivity {
     }
     
     private void setupClickListeners() {
-        btnPlay.setOnClickListener(v -> showGameModeDialog());
+        btnPlay.setOnClickListener(v -> showGameSetupDialog());
         btnSettings.setOnClickListener(v -> startActivity(new Intent(this, SettingsActivity.class)));
         btnAchievements.setOnClickListener(v -> startActivity(new Intent(this, AchievementsActivity.class)));
         btnExit.setOnClickListener(v -> showExitDialog());
     }
-    
-    private void showGameModeDialog() {
-        final String[] modes = {"Player vs Player", "Player vs Bot"};
-        
-        new AlertDialog.Builder(this)
-                .setTitle("Choose Game Mode")
-                .setItems(modes, (dialog, which) -> {
-                    if (which == 0) {
-                        chooseBoardAndStart("PVP", "EASY"); // PvP doesn't need difficulty
-                    } else {
-                        chooseDifficulty(difficulty -> chooseBoardAndStart("PVBOT", difficulty));
-                    }
-                })
-                .show();
-    }
-    
-    private interface DifficultyCallback {
-        void onChosen(String difficulty);
-    }
-    
-    private void chooseDifficulty(DifficultyCallback callback) {
-        final String[] difficulties = {"Easy", "Normal", "Hard"};
-        final String[] difficultyValues = {"EASY", "NORMAL", "HARD"};
-        
-        new AlertDialog.Builder(this)
-                .setTitle("Choose Bot Difficulty")
-                .setItems(difficulties, (dialog, which) -> callback.onChosen(difficultyValues[which]))
-                .show();
-    }
-    
-    private void chooseBoardAndStart(String mode, String difficulty) {
-        final String[] sizes = {"3 x 3", "5 x 5", "7 x 7"};
-        
-        new AlertDialog.Builder(this)
-                .setTitle("Choose Board Size")
-                .setItems(sizes, (dialog, which) -> {
-                    int size = 3;
-                    if (which == 1) size = 5;
-                    else if (which == 2) size = 7;
-                    
-                    Intent intent = new Intent(MainActivity.this, GameActivity.class);
-                    intent.putExtra("MODE", mode);
-                    intent.putExtra("DIFFICULTY", difficulty);
-                    intent.putExtra("SIZE", size);
-                    startActivity(intent);
-                })
-                .show();
+
+    private void showGameSetupDialog() {
+        GameSetupDialog dialog = new GameSetupDialog(this);
+        dialog.show();
     }
     
     private void showExitDialog() {
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(this, R.style.CustomDialogTheme)
                 .setTitle("Exit Game")
                 .setMessage("Are you sure you want to exit?")
                 .setPositiveButton("Yes", (dialog, which) -> finish())
                 .setNegativeButton("No", null)
                 .show();
-    }
-    
-    @Override
+    }    @Override
     protected void onResume() {
         super.onResume();
         // TODO: Add music manager
