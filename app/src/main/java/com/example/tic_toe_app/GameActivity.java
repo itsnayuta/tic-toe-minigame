@@ -14,26 +14,25 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 public class GameActivity extends AppCompatActivity {
 
     private TextView tvGameInfo, tvScoreX, tvScoreTies, tvScoreO, tvOpponentLabel;
     private GridLayout gameBoard;
     private Button btnMainMenu, btnResetScore;
+
     private MusicManager musicManager;
-    
+    private SharedPreferences prefs;
+
     private int[][] board;
     private int boardSize = 3;
     private String gameMode = "PVP";
     private String difficulty = "Easy";
     private boolean isPlayerXTurn = true;
     private boolean gameEnded = false;
-    
-    private SharedPreferences prefs;
+
     private int scoreX = 0, scoreTies = 0, scoreO = 0;
+
+    private LogicBot logicBot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +68,6 @@ public class GameActivity extends AppCompatActivity {
             initializeBoard();
             
         } catch (Exception e) {
-            e.printStackTrace();
-            
             try {
                 setContentView(R.layout.activity_game);
                 Toast.makeText(this, "Error starting game: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -116,53 +113,40 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void setupGameInfo() {
-        try {
-            String info;
-            if ("PVBOT".equals(gameMode)) {
-                info = "Mode: 1P  Size: " + boardSize + "x" + boardSize + "  Difficulty: " + difficulty;
-                if (tvOpponentLabel != null) tvOpponentLabel.setText("O (AI)");
-                if (btnResetScore != null) btnResetScore.setVisibility(View.GONE);
-            } else {
-                info = "Mode: 2P  Size: " + boardSize + "x" + boardSize;
-                if (tvOpponentLabel != null) tvOpponentLabel.setText("O (P2)");
-                if (btnResetScore != null) btnResetScore.setVisibility(View.VISIBLE);
-            }
-            if (tvGameInfo != null) tvGameInfo.setText(info);
-        } catch (Exception e) {
-        } catch (Exception e) {
+        String info;
+        if ("PVBOT".equals(gameMode)) {
+            info = "Mode: 1P  Size: " + boardSize + "x" + boardSize + "  Difficulty: " + difficulty;
+            if (tvOpponentLabel != null) tvOpponentLabel.setText("O (AI)");
+            if (btnResetScore != null) btnResetScore.setVisibility(View.GONE);
+        } else {
+            info = "Mode: 2P  Size: " + boardSize + "x" + boardSize;
+            if (tvOpponentLabel != null) tvOpponentLabel.setText("O (P2)");
+            if (btnResetScore != null) btnResetScore.setVisibility(View.VISIBLE);
         }
+        if (tvGameInfo != null) tvGameInfo.setText(info);
     }
 
     private void loadScores() {
-        try {
-            String key = gameMode + "_" + boardSize + "x" + boardSize;
-            scoreX = prefs.getInt(key + "_X", 0);
-            scoreTies = prefs.getInt(key + "_TIES", 0);
-            scoreO = prefs.getInt(key + "_O", 0);
-            updateScoreDisplay();
-        } catch (Exception e) {
-        }
+        String key = gameMode + "_" + boardSize + "x" + boardSize;
+        scoreX = prefs.getInt(key + "_X", 0);
+        scoreTies = prefs.getInt(key + "_TIES", 0);
+        scoreO = prefs.getInt(key + "_O", 0);
+        updateScoreDisplay();
     }
 
     private void saveScores() {
-        try {
-            String key = gameMode + "_" + boardSize + "x" + boardSize;
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putInt(key + "_X", scoreX);
-            editor.putInt(key + "_TIES", scoreTies);
-            editor.putInt(key + "_O", scoreO);
-            editor.apply();
-        } catch (Exception e) {
-        }
+        String key = gameMode + "_" + boardSize + "x" + boardSize;
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(key + "_X", scoreX);
+        editor.putInt(key + "_TIES", scoreTies);
+        editor.putInt(key + "_O", scoreO);
+        editor.apply();
     }
 
     private void updateScoreDisplay() {
-        try {
-            if (tvScoreX != null) tvScoreX.setText(String.valueOf(scoreX));
-            if (tvScoreTies != null) tvScoreTies.setText(String.valueOf(scoreTies));
-            if (tvScoreO != null) tvScoreO.setText(String.valueOf(scoreO));
-        } catch (Exception e) {
-        }
+        if (tvScoreX != null) tvScoreX.setText(String.valueOf(scoreX));
+        if (tvScoreTies != null) tvScoreTies.setText(String.valueOf(scoreTies));
+        if (tvScoreO != null) tvScoreO.setText(String.valueOf(scoreO));
     }
 
     private void initializeBoard() {
@@ -179,7 +163,6 @@ public class GameActivity extends AppCompatActivity {
             gameBoard.setRowCount(boardSize);
 
             int cellSize;
-            int finalGapSize;
             try {
                 DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
                 int screenWidth = displayMetrics.widthPixels;
@@ -193,7 +176,6 @@ public class GameActivity extends AppCompatActivity {
 
                 int maxBoardDimension = Math.min(availableWidth, availableHeight);
                 
-                finalGapSize = 0;
                 cellSize = maxBoardDimension / boardSize;
                 
                 int minCellSize = Math.round(45 * density);
@@ -206,9 +188,7 @@ public class GameActivity extends AppCompatActivity {
                 }
                 
             } catch (Exception scalingError) {
-                scalingError.printStackTrace();
                 cellSize = 150;
-                finalGapSize = 4;
             }
 
             for (int i = 0; i < boardSize; i++) {
@@ -249,7 +229,6 @@ public class GameActivity extends AppCompatActivity {
                         board[i][j] = 0;
 
                     } catch (Exception cellException) {
-                        cellException.printStackTrace();
                     }
                 }
             }
@@ -257,8 +236,9 @@ public class GameActivity extends AppCompatActivity {
             isPlayerXTurn = true;
             gameEnded = false;
 
+            logicBot = new LogicBot(board, boardSize, difficulty);
+
         } catch (Exception e) {
-            e.printStackTrace();
             Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
             
             try {
@@ -322,18 +302,29 @@ public class GameActivity extends AppCompatActivity {
                 isPlayerXTurn = !isPlayerXTurn;
                 
                 if (!isPlayerXTurn && "PVBOT".equals(gameMode) && !gameEnded) {
-                    makeBotMove();
+                    int[] move = logicBot.makeBotMove();
+                    if (move != null) {
+                        int position = move[0] * boardSize + move[1];
+                        if (position < gameBoard.getChildCount()) {
+                            ImageView botCell = (ImageView) gameBoard.getChildAt(position);
+                            onCellClicked(move[0], move[1], botCell);
+                        }
+                    }
                 }
             }
         } catch (Exception e) {
-
-            e.printStackTrace();
         }
     }
 
     private boolean checkWin() {
         int player = isPlayerXTurn ? 1 : 2;
         return checkWinWithLength(player, getWinLength());
+    }
+    
+    private int getWinLength() {
+        if (boardSize == 3) return 3;
+        if (boardSize == 5) return 4;
+        return 5;
     }
     
     private boolean checkWinWithLength(int player, int winLength) {
@@ -378,145 +369,6 @@ public class GameActivity extends AppCompatActivity {
         return true;
     }
 
-    private void makeBotMove() {
-        int[] move = null;
-        
-        switch (difficulty.toLowerCase()) {
-            case "easy":
-                move = makeEasyMove();
-                break;
-            case "medium":
-                move = makeMediumMove();
-                break;
-            case "hard":
-                move = makeHardMove();
-                break;
-            default:
-                move = makeEasyMove();
-                break;
-        }
-        
-        if (move != null) {
-            int position = move[0] * boardSize + move[1];
-            if (position < gameBoard.getChildCount()) {
-                ImageView cell = (ImageView) gameBoard.getChildAt(position);
-                onCellClicked(move[0], move[1], cell);
-            }
-        }
-    }
-    
-    private int[] makeEasyMove() {
-        List<int[]> emptyCells = getEmptyCells();
-        if (!emptyCells.isEmpty()) {
-            Random random = new Random();
-            return emptyCells.get(random.nextInt(emptyCells.size()));
-        }
-        return null;
-    }
-    
-    private int getWinLength() {
-        if (boardSize == 3) return 3;
-        if (boardSize == 5) return 4;
-        return 5;
-    }
-    
-    private int[] makeMediumMove() {
-        int winLength = getWinLength();
-        
-        int[] blockMove = findBlockingMove(1, winLength);
-        if (blockMove != null) {
-            return blockMove;
-        }
-        
-        return makeEasyMove();
-    }
-    
-    private int[] makeHardMove() {
-        int winLength = getWinLength();
-        
-        int[] winMove = findWinningMove(2, winLength);
-        if (winMove != null) {
-            return winMove;
-        }
-        
-        int[] blockMove = findBlockingMove(1, winLength);
-        if (blockMove != null) {
-            return blockMove;
-        }
-        
-        int[] strategicMove = findStrategicMove();
-        if (strategicMove != null) {
-            return strategicMove;
-        }
-        
-        return makeEasyMove();
-    }
-    
-    private List<int[]> getEmptyCells() {
-        List<int[]> emptyCells = new ArrayList<>();
-        for (int i = 0; i < boardSize; i++) {
-            for (int j = 0; j < boardSize; j++) {
-                if (board[i][j] == 0) {
-                    emptyCells.add(new int[]{i, j});
-                }
-            }
-        }
-        return emptyCells;
-    }
-    
-    private int[] findWinningMove(int player, int winLength) {
-        List<int[]> emptyCells = getEmptyCells();
-        
-        for (int[] cell : emptyCells) {
-            int row = cell[0];
-            int col = cell[1];
-            
-            board[row][col] = player;
-            
-            if (checkWinWithLength(player, winLength)) {
-                board[row][col] = 0;
-                return new int[]{row, col};
-            }
-            
-            board[row][col] = 0;
-        }
-        
-        return null;
-    }
-    
-    private int[] findBlockingMove(int opponentPlayer, int winLength) {
-        return findWinningMove(opponentPlayer, winLength);
-    }
-    
-    private int[] findStrategicMove() {
-        List<int[]> emptyCells = getEmptyCells();
-        if (emptyCells.isEmpty()) return null;
-        
-        if (boardSize == 3) {
-            if (board[1][1] == 0) return new int[]{1, 1};
-            int[][] corners = {{0,0}, {0,2}, {2,0}, {2,2}};
-            for (int[] corner : corners) {
-                if (board[corner[0]][corner[1]] == 0) {
-                    return corner;
-                }
-            }
-        } else {
-            int center = boardSize / 2;
-            int range = Math.max(1, boardSize / 4);
-            
-            for (int r = Math.max(0, center - range); r <= Math.min(boardSize - 1, center + range); r++) {
-                for (int c = Math.max(0, center - range); c <= Math.min(boardSize - 1, center + range); c++) {
-                    if (board[r][c] == 0) {
-                        return new int[]{r, c};
-                    }
-                }
-            }
-        }
-        
-        Random random = new Random();
-        return emptyCells.get(random.nextInt(emptyCells.size()));
-    }
-
     private void showGameEndDialog(String message) {
         try {
             String title;
@@ -551,8 +403,6 @@ public class GameActivity extends AppCompatActivity {
                     .setCancelable(false)
                     .show();
         } catch (Exception e) {
-
-            e.printStackTrace();
             Toast.makeText(this, message + "\nScore: " + scoreX + " - " + scoreO, Toast.LENGTH_LONG).show();
         }
     }
