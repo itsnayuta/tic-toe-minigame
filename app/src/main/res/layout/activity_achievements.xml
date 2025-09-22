@@ -7,20 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".AchievementsActivity">
 
-    <!-- Background Image -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@drawable/background" />
 
-    <!-- Gradient Overlay -->
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/gradient_overlay" />
 
-    <!-- Main Content -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,7 +25,6 @@
         android:gravity="center_horizontal"
         android:padding="32dp">
 
-        <!-- Achievements Title -->
         <TextView
             android:layout_width="357dp"
             android:layout_height="wrap_content"
@@ -45,7 +41,6 @@
             android:textSize="32sp"
             android:textStyle="bold" />
 
-        <!-- Achievements Container -->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -57,7 +52,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Achievements Card -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -66,7 +60,6 @@
                     android:padding="20dp"
                     android:elevation="8dp">
 
-                    <!-- Card Title -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -77,7 +70,6 @@
                         android:fontFamily="@font/fontgame"
                         android:layout_marginBottom="20dp" />
 
-                    <!-- Achievement 1: Win 100 matches -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -87,7 +79,6 @@
                         android:layout_marginBottom="16dp"
                         android:elevation="4dp">
 
-                        <!-- Achievement Header -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -95,7 +86,6 @@
                             android:gravity="center_vertical"
                             android:layout_marginBottom="12dp">
 
-                            <!-- Achievement Icon -->
                             <TextView
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
@@ -105,7 +95,6 @@
                                 android:background="@drawable/button_achievement"
                                 android:layout_marginEnd="16dp" />
 
-                            <!-- Achievement Info -->
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -129,10 +118,8 @@
                                     android:textColor="@color/black"
                                     android:textSize="12sp"
                                     android:textStyle="bold"/>
-
                             </LinearLayout>
 
-                            <!-- Progress Text -->
                             <TextView
                                 android:id="@+id/winProgressText"
                                 android:layout_width="wrap_content"
@@ -142,10 +129,8 @@
                                 android:textStyle="bold"
                                 android:textColor="@color/button_achievement"
                                 android:fontFamily="@font/fontgame" />
-
                         </LinearLayout>
 
-                        <!-- Progress Bar -->
                         <ProgressBar
                             android:id="@+id/winProgressBar"
                             style="@android:style/Widget.ProgressBar.Horizontal"
@@ -155,10 +140,8 @@
                             android:progress="45"
                             android:progressTint="@color/button_achievement"
                             android:progressBackgroundTint="#E0E0E0" />
-
                     </LinearLayout>
 
-                    <!-- Achievement 2: Lose 100 matches -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -167,7 +150,6 @@
                         android:padding="16dp"
                         android:elevation="4dp">
 
-                        <!-- Achievement Header -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -175,7 +157,6 @@
                             android:gravity="center_vertical"
                             android:layout_marginBottom="12dp">
 
-                            <!-- Achievement Icon -->
                             <TextView
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
@@ -185,7 +166,6 @@
                                 android:background="@drawable/button_secondary"
                                 android:layout_marginEnd="16dp" />
 
-                            <!-- Achievement Info -->
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -209,10 +189,8 @@
                                     android:textColor="@color/black"
                                     android:fontFamily="sans-serif-medium"
                                     android:textStyle="bold"/>
-
                             </LinearLayout>
 
-                            <!-- Progress Text -->
                             <TextView
                                 android:id="@+id/loseProgressText"
                                 android:layout_width="wrap_content"
@@ -225,7 +203,6 @@
 
                         </LinearLayout>
 
-                        <!-- Progress Bar -->
                         <ProgressBar
                             android:id="@+id/loseProgressBar"
                             style="@android:style/Widget.ProgressBar.Horizontal"
@@ -244,7 +221,6 @@
 
         </ScrollView>
 
-        <!-- Statistical Analysis Button -->
         <Button
             android:id="@+id/btnStatisticalAnalysis"
             android:layout_width="280dp"
@@ -259,7 +235,6 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="16dp" />
 
-        <!-- Back Button -->
         <Button
             android:id="@+id/btnBack"
             android:layout_width="200dp"

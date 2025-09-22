@@ -7,20 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".SettingsActivity">
 
-    <!-- Background Image -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@drawable/background" />
 
-    <!-- Gradient Overlay -->
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/gradient_overlay" />
 
-    <!-- Main Content -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,7 +25,6 @@
         android:gravity="center_horizontal"
         android:padding="32dp">
 
-        <!-- Settings Title -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,7 +41,6 @@
             android:layout_marginBottom="80dp"
             android:gravity="center" />
 
-        <!-- Settings Container -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,7 +50,6 @@
             android:layout_marginBottom="40dp"
             android:elevation="8dp">
 
-            <!-- Volume Settings Section -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -66,7 +60,6 @@
                 android:fontFamily="@font/fontgame"
                 android:layout_marginBottom="24dp" />
 
-            <!-- Volume Control Layout -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -74,7 +67,6 @@
                 android:gravity="center_vertical"
                 android:layout_marginBottom="16dp">
 
-                <!-- Volume Icon -->
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
@@ -82,7 +74,6 @@
                     android:layout_marginEnd="16dp"
                     app:tint="#666666" />
 
-                <!-- Volume Slider -->
                 <SeekBar
                     android:id="@+id/volumeSeekBar"
                     android:layout_width="0dp"
@@ -94,7 +85,6 @@
                     android:progressTint="@color/button_primary"
                     android:thumbTint="@color/button_primary" />
 
-                <!-- Mute/Unmute Button -->
                 <ToggleButton
                     android:id="@+id/muteToggleButton"
                     style="@style/CustomToggleButton"
@@ -109,7 +99,6 @@
 
             </LinearLayout>
 
-            <!-- Volume Value Display -->
             <TextView
                 android:id="@+id/volumeValueText"
                 android:layout_width="wrap_content"
@@ -122,13 +111,11 @@
 
         </LinearLayout>
 
-        <!-- Space filler -->
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <!-- Back Button -->
         <Button
             android:id="@+id/btnBack"
             android:layout_width="200dp"

@@ -9,12 +9,14 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
     
     private Button btnPlay, btnSettings, btnAchievements, btnExit;
+    private MusicManager musicManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
+        musicManager = MusicManager.getInstance(this);
         initializeViews();
         setupClickListeners();
     }
@@ -45,21 +47,29 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", (dialog, which) -> finish())
                 .setNegativeButton("No", null)
                 .show();
-    }    @Override
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
-        // TODO: Add music manager
+        if (musicManager != null) {
+            musicManager.onActivityResume();
+        }
     }
     
     @Override
     protected void onPause() {
         super.onPause();
-        // TODO: Add music manager
+        if (musicManager != null) {
+            musicManager.onActivityPause();
+        }
     }
     
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // TODO: Add music manager
+        if (musicManager != null) {
+            musicManager.onAppDestroy();
+        }
     }
 }

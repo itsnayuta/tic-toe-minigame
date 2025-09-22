@@ -10,14 +10,12 @@
     android:padding="20dp"
     tools:context=".GameActivity">
 
-    <!-- Game Info Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginBottom="20dp">
 
-        <!-- Game Mode and Settings Info -->
         <TextView
             android:id="@+id/tvGameInfo"
             android:layout_width="match_parent"
@@ -32,7 +30,6 @@
 
     </LinearLayout>
 
-    <!-- Score Board Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,9 +37,6 @@
         android:layout_marginBottom="24dp"
         android:gravity="center">
 
-        <!-- X Score -->
-
-        <!-- TIES Score -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -69,7 +63,7 @@
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/fontgame"
                 android:text="0"
-                android:textColor="#4FC3F7"
+                android:textColor="#00BBFF"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -108,7 +102,6 @@
 
         </LinearLayout>
 
-        <!-- O Score -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -136,7 +129,7 @@
                 android:text="0"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="#FFB74D"
+                android:textColor="#FB2C2C"
                 android:fontFamily="@font/fontgame"
                 android:layout_marginTop="4dp" />
 
@@ -144,14 +137,12 @@
 
     </LinearLayout>
 
-    <!-- Game Board Container -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:padding="4dp">
 
-        <!-- Game Board Grid -->
         <GridLayout
             android:id="@+id/gameBoard"
             android:layout_width="wrap_content"
@@ -161,13 +152,10 @@
             android:alignmentMode="alignBounds"
             android:columnOrderPreserved="false">
 
-            <!-- Board cells will be added programmatically -->
-
         </GridLayout>
 
     </FrameLayout>
 
-    <!-- Bottom Buttons Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -175,7 +163,6 @@
         android:layout_marginTop="20dp"
         android:gravity="center">
 
-        <!-- Main Menu Button -->
         <Button
             android:id="@+id/btnMainMenu"
             android:layout_width="0dp"
@@ -189,7 +176,6 @@
             android:background="@drawable/button_secondary"
             android:layout_marginEnd="8dp" />
 
-        <!-- Reset Score Button (only visible in 2P mode) -->
         <Button
             android:id="@+id/btnResetScore"
             android:layout_width="0dp"

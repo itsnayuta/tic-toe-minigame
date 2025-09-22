@@ -28,15 +28,12 @@ public class GameSetupDialog extends Dialog {
         initializeViews();
         setupClickListeners();
         
-        // Set initial selections: 1P mode, Easy difficulty, and 3x3 board
         selectedMode = "PVBOT";
         selectedSize = 3;
         selectedDifficulty = "EASY";
         
-        // Show difficulty section initially (since PvBot is default)
         difficultySection.setVisibility(View.VISIBLE);
         
-        // Force initial update after a brief delay to ensure views are ready
         getWindow().getDecorView().post(() -> updateSelectedButtons());
     }
 
@@ -59,7 +56,6 @@ public class GameSetupDialog extends Dialog {
     }
 
     private void setupClickListeners() {
-        // Game Mode buttons
         btnPvBot.setOnClickListener(v -> {
             selectedMode = "PVBOT";
             difficultySection.setVisibility(View.VISIBLE);
@@ -72,7 +68,6 @@ public class GameSetupDialog extends Dialog {
             updateSelectedButtons();
         });
 
-        // Difficulty buttons
         btnEasy.setOnClickListener(v -> {
             selectedDifficulty = "EASY";
             updateSelectedButtons();
@@ -88,7 +83,6 @@ public class GameSetupDialog extends Dialog {
             updateSelectedButtons();
         });
 
-        // Board size buttons
         btn3x3.setOnClickListener(v -> {
             selectedSize = 3;
             updateSelectedButtons();
@@ -104,7 +98,6 @@ public class GameSetupDialog extends Dialog {
             updateSelectedButtons();
         });
 
-        // Action buttons
         btnCancel.setOnClickListener(v -> dismiss());
 
         btnStart.setOnClickListener(v -> {
@@ -114,48 +107,43 @@ public class GameSetupDialog extends Dialog {
     }
 
     private void updateSelectedButtons() {
-        // Update game mode buttons
         if (selectedMode.equals("PVBOT")) {
-            btnPvBot.setBackgroundResource(R.drawable.button_primary);  // Hồng cho selected
-            btnPvP.setBackgroundResource(R.drawable.button_unselected); // Xám cho unselected
+            btnPvBot.setBackgroundResource(R.drawable.button_primary);
+            btnPvP.setBackgroundResource(R.drawable.button_unselected);
         } else {
-            btnPvBot.setBackgroundResource(R.drawable.button_unselected);   // Xám cho unselected
-            btnPvP.setBackgroundResource(R.drawable.button_primary);   // Hồng cho selected
+            btnPvBot.setBackgroundResource(R.drawable.button_unselected);
+            btnPvP.setBackgroundResource(R.drawable.button_primary);
         }
 
-        // Update difficulty buttons - reset all first
         btnEasy.setBackgroundResource(R.drawable.button_unselected);
         btnNormal.setBackgroundResource(R.drawable.button_unselected);
         btnHard.setBackgroundResource(R.drawable.button_unselected);
 
-        // Highlight selected difficulty with pink
         switch (selectedDifficulty) {
             case "EASY":
-                btnEasy.setBackgroundResource(R.drawable.button_primary);  // Hồng
+                btnEasy.setBackgroundResource(R.drawable.button_primary);
                 break;
             case "NORMAL":
-                btnNormal.setBackgroundResource(R.drawable.button_primary); // Hồng
+                btnNormal.setBackgroundResource(R.drawable.button_primary);
                 break;
             case "HARD":
-                btnHard.setBackgroundResource(R.drawable.button_primary);   // Hồng
+                btnHard.setBackgroundResource(R.drawable.button_primary);
                 break;
         }
 
-        // Update board size buttons - reset all first
         btn3x3.setBackgroundResource(R.drawable.button_unselected);
         btn5x5.setBackgroundResource(R.drawable.button_unselected);
         btn7x7.setBackgroundResource(R.drawable.button_unselected);
 
-        // Highlight selected board size with pink
         switch (selectedSize) {
             case 3:
-                btn3x3.setBackgroundResource(R.drawable.button_primary);  // Hồng
+                btn3x3.setBackgroundResource(R.drawable.button_primary);
                 break;
             case 5:
-                btn5x5.setBackgroundResource(R.drawable.button_primary);  // Hồng
+                btn5x5.setBackgroundResource(R.drawable.button_primary);
                 break;
             case 7:
-                btn7x7.setBackgroundResource(R.drawable.button_primary);  // Hồng
+                btn7x7.setBackgroundResource(R.drawable.button_primary);
                 break;
         }
     }

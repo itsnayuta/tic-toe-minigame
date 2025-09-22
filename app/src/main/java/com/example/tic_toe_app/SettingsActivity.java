@@ -5,7 +5,6 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -18,6 +17,7 @@ public class SettingsActivity extends AppCompatActivity {
     private TextView volumeValueText;
     private ToggleButton muteToggleButton;
     private Button btnBack;
+    private MusicManager musicManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +25,7 @@ public class SettingsActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_settings);
         
+        musicManager = MusicManager.getInstance(this);
         initializeViews();
         setupVolumeControls();
         
@@ -43,23 +44,27 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void setupVolumeControls() {
-        // Set initial volume value
-        int currentVolume = 70; // Default volume
-        volumeSeekBar.setProgress(currentVolume);
-        updateVolumeText(currentVolume);
+        float currentVolume = musicManager.getVolume();
+        boolean isMusicEnabled = musicManager.isMusicEnabled();
+        
+        int volumePercent = (int) (currentVolume * 100);
+        volumeSeekBar.setProgress(volumePercent);
+        muteToggleButton.setChecked(!isMusicEnabled);
+        volumeSeekBar.setEnabled(isMusicEnabled);
+        updateVolumeText(isMusicEnabled ? volumePercent : 0);
 
-        // Volume SeekBar listener
         volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
+                    float volume = progress / 100.0f;
+                    musicManager.setVolume(volume);
                     updateVolumeText(progress);
-                    // Here you would update the actual game volume
-                    // MusicManager.setVolume(progress / 100.0f);
                     
-                    // If volume is moved, automatically unmute
                     if (progress > 0 && muteToggleButton.isChecked()) {
                         muteToggleButton.setChecked(false);
+                        musicManager.setMusicEnabled(true);
+                        volumeSeekBar.setEnabled(true);
                     }
                 }
             }
@@ -71,25 +76,35 @@ public class SettingsActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
-        // Mute/Unmute toggle button listener
         muteToggleButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                // Mute: Save current volume and set to 0
+                musicManager.setMusicEnabled(false);
                 volumeSeekBar.setEnabled(false);
                 updateVolumeText(0);
-                // MusicManager.setVolume(0.0f);
             } else {
-                // Unmute: Restore volume
+                musicManager.setMusicEnabled(true);
                 volumeSeekBar.setEnabled(true);
                 updateVolumeText(volumeSeekBar.getProgress());
-                // MusicManager.setVolume(volumeSeekBar.getProgress() / 100.0f);
             }
         });
 
-        // Back button listener
-        btnBack.setOnClickListener(v -> {
-            finish(); // Close settings and return to previous activity
-        });
+        btnBack.setOnClickListener(v -> finish());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (musicManager != null) {
+            musicManager.onActivityResume();
+        }
+    }
+    
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (musicManager != null) {
+            musicManager.onActivityPause();
+        }
     }
 
     private void updateVolumeText(int volume) {

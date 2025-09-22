@@ -23,7 +23,7 @@
     <color name="text_primary">#FFFFFF</color>
     <color name="text_secondary">#CCCCCC</color>
     <color name="text_dialog">#333333</color>
-    <color name="game_background">@color/design_default_color_secondary</color>
+    <color name="game_background">@android:color/darker_gray</color>
     
     <!-- Score Board Colors -->
     <color name="score_background">@android:color/darker_gray</color>
